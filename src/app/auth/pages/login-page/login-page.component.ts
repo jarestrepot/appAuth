@@ -1,8 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControlName, FormGroup, MinValidator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
+import Swal from 'sweetalert2';
+
 import { User } from '@auth/interfaces';
 import { AuthService } from '@auth/services/auth.service';
 import { emailPattern } from 'src/app/shared/validators/validators';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -13,11 +18,12 @@ export class LoginPageComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   public currentUser?: User;
+  private router = inject( Router );
 
 
   public myFormAuth: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern(emailPattern)]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    email: ['javier@gmail.com', [Validators.required, Validators.pattern(emailPattern)]],
+    password: ['1234567', [Validators.required, Validators.minLength(6)]]
   });
 
 
@@ -31,8 +37,8 @@ export class LoginPageComponent {
     const { email, password } = this.myFormAuth.value;
 
     this.authService.login(email, password).subscribe({
-      next: ( sucess ) => console.log( sucess ),
-      error: ( err ) => console.log( err ),
+      next: () => this.router.navigateByUrl('/dashboard'),
+      error: (message) => Swal.fire('Error', message, 'error'),
     });
 
     this.myFormAuth.reset();

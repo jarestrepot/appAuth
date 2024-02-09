@@ -1,0 +1,52 @@
+.father-loader{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display:grid;
+  place-content: center;
+  place-items: center;
+}
+.loader {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  animation: spineer 1.2s linear infinite;
+  position: absolute;
+  margin:auto;
+  top: 20%;
+  left: 45%;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+}
+
+.loader::before {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(0deg, #f0c 0%, #80f 100%);
+}
+
+.loader::after {
+  width: 85%;
+  height: 85%;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spineer {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+p{
+  position: absolute;
+  top: 32%;
+  left: 45.5%;
+}

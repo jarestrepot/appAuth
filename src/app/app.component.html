@@ -1,1 +1,10 @@
-<router-outlet/>  
+
+
+<router-outlet *ngIf="finishAuthCheck(); else notAuthenticated"/>
+
+<!-- Crear componente shared -->
+<ng-template #notAuthenticated class="container-spinner" >
+  <div class="loader" >
+  </div>
+  <p>Loading...</p>
+</ng-template>
