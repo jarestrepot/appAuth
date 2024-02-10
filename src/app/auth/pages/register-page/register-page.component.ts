@@ -50,6 +50,8 @@ export class RegisterPageComponent {
               showClass: true
             }
             await showAlertError(objectError);
+            this.myFormRegister.markAllAsTouched();
+            this.myFormRegister.reset();
           }
         }
       });

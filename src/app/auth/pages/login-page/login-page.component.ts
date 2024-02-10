@@ -9,6 +9,7 @@ import { AuthService } from '@auth/services/auth.service';
 import { emailPattern } from 'src/app/shared/validators/validators';
 import { Router } from '@angular/router';
 import { FORMS_ERRORRS } from '@helpers/errors/formErrors';
+import { ValidatorsService } from '@shared/service/validators.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -20,6 +21,7 @@ export class LoginPageComponent {
   private authService = inject(AuthService);
   public currentUser?: User;
   private router = inject( Router );
+  private validatorsService = inject(ValidatorsService);
 
 
   public myFormAuth: FormGroup = this.fb.group({
@@ -46,30 +48,11 @@ export class LoginPageComponent {
   }
 
   isValidField(field: string): boolean | null {
-    return this.myFormAuth.controls[field].errors && this.myFormAuth.controls[field].touched;
+    return this.validatorsService.isValidField( field, this.myFormAuth );
   }
 
   getFieldError(field: string) {
-
-    if (!this.myFormAuth.controls[field] && !this.myFormAuth.controls[field].errors) {
-      return null;
-    }
-
-    const errors = this.myFormAuth.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return FORMS_ERRORRS.required
-        case 'minlength':
-          return FORMS_ERRORRS.minLength(errors)
-        case 'pattern':
-          return FORMS_ERRORRS.pattern('email');
-        default:
-          return ''
-      }
-    }
-    return ''
+    return this.validatorsService.getFieldError( field, this.myFormAuth );
   }
 
 

@@ -9,19 +9,20 @@
     Login
   </span>
 
-  <div class="wrap-input100 m-b-23">
+  <div class="wrap-input100 m-b-8">
     <span class="label-input100">Email</span>
     <input formControlName="email" class="input100" type="email" placeholder="Email">
     <span class="focus-input100"></span>
-    <span
-      *ngIf="isValidField('email')"
-      [ngStyle]="{ 'color': 'red', 'font-weight': 'italic'}"
-    >
-      {{ getFieldError('email') }}
-    </span>
   </div>
+  <span
+    class="m-b-8 error-message"
+    *ngIf="isValidField('email')"
+    [ngStyle]="{ 'color': 'red', 'font-weight': 'italic'}"
+  >
+    {{ getFieldError('email') }}
+  </span>
 
-  <div class="wrap-input100">
+  <div class="wrap-input100 m-b-2">
     <span class="label-input100">Password</span>
     <input
       formControlName="password"
@@ -30,13 +31,14 @@
       placeholder="Your password"
     >
     <span class="focus-input100"></span>
-    <span
-      *ngIf="isValidField('password')"
-      [ngStyle]="{ 'color': 'red', 'font-weight': 'italic'}"
-    >
-    {{ getFieldError('password') }}
-  </span>
   </div>
+  <span
+    class="m-b-8 error-message"
+    *ngIf="isValidField('password')"
+    [ngStyle]="{ 'color': 'red', 'font-weight': 'italic'}"
+  >
+  {{ getFieldError('password') }}
+</span>
 
   <div class="text-right p-t-8 p-b-31"></div>
 
@@ -46,7 +48,9 @@
       <button
         [disabled]="myFormAuth.invalid"
         class="login100-form-btn"
-        type="submit">
+        type="submit"
+        [style]="myFormAuth.invalid ? { cursor: 'not-allowed' } :{ cursor: 'pointer'}"
+      >
         Login
       </button>
     </div>
