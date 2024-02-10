@@ -25,8 +25,8 @@ export class LoginPageComponent {
 
 
   public myFormAuth: FormGroup = this.fb.group({
-    email: ['javier@gmail.com', [Validators.required, Validators.pattern(emailPattern)]],
-    password: ['1234567', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.required, Validators.pattern(emailPattern)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
 

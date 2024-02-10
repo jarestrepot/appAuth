@@ -22,12 +22,12 @@ export class RegisterPageComponent {
 
 
   public myFormRegister: FormGroup = this.fb.group({
-    email: ['javier@gmail.com', [Validators.required, Validators.pattern(emailPattern)],
-      [ this.emailValidatorService ]
+    email: ['', [Validators.required, Validators.pattern(emailPattern)],
+      [ this.emailValidatorService ] // Validación asincrona
     ],
-    name: ['javier', [Validators.required, Validators.minLength(3)]],
-    password: ['1234567', [Validators.required, Validators.minLength(6)]],
-    passwordConfirm: ['1234567', [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    passwordConfirm: ['', [Validators.required]],
   },
   {
     validators: [
