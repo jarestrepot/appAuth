@@ -2903,3 +2903,9 @@ flex-direction: column;
 -ms-align-items: center;
 align-items: center;
 }
+
+/* Error messge */
+.error-message{
+  font-size: .8rem;
+  font-style: italic;
+}

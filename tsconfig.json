@@ -26,6 +26,7 @@
       "@assets/*": ["src/assets/*"],
       "@environment/*": ["src/environment/*"],
       "@guard/*": ["src/guard/*"],
+      "@helpers/*": ["src/app/helpers/*"],
     },
     "lib": [
       "ES2022",

@@ -3,6 +3,9 @@ import { environment } from 'src/environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { AuthStatus, CheckTokenResponse, LoginUserResponse, User } from '@auth/interfaces';
+import { BodyRegister } from '@auth/interfaces/body-register';
+import { RegisterResponse } from '@auth/interfaces/resgiter-response.interface';
+import { ValidationErrors } from '@angular/forms';
 
 
 
@@ -44,9 +47,26 @@ export class AuthService {
         map(({ user, token }) => this.setAuthentication(user, token)),
         catchError(({ error }) => {
           this._authStatus.set(AuthStatus.notAuthenticated);
-          return throwError(() => error.message)
+          return throwError(() => error.message);
         })
       );
+
+  }
+
+
+  register({ email, name , password }: BodyRegister): Observable<boolean>{
+
+    const url = `${this.baseUrl}/auth/register`;
+    const body = { email, name, password }
+    return this.http.post<RegisterResponse>( url, body )
+    .pipe(
+      tap( (response) => console.log( response )),
+      map( ({ user, token }) => this.setAuthentication(user, token)),
+      catchError(( { error } ) => {
+        this._authStatus.set(AuthStatus.notAuthenticated);
+        return throwError(() => error );
+      })
+    )
 
   }
 
@@ -81,4 +101,12 @@ export class AuthService {
     this._authStatus.set(AuthStatus.notAuthenticated);
     this._currentUser.set( null );
   }
+
+  checkEmail(email: string): Observable<boolean>{
+    const url = `${this.baseUrl}/auth/check-email`;
+    const body = { email };
+    return this.http.post<boolean>(url, body);
+  }
+
+
 }
